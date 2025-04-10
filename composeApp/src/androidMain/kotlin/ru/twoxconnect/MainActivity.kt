@@ -1,5 +1,8 @@
+@file:Suppress("NOTHING_TO_INLINE")
+
 package ru.twoxconnect
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,6 +22,11 @@ class MainActivity: ComponentActivity() {
     }
 }
 
-@Preview
+@Preview(
+    showSystemUi = true,
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL,
+    device = "id:pixel_8_pro"
+)
 @Composable
-fun AppAndroidPreview() = App()
+inline fun AppAndroidPreview() = App()
