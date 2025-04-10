@@ -92,6 +92,25 @@ compose.desktop {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "ru.twoxconnect"
             packageVersion = "1.0.0"
+
+            linux {
+                iconFile.set(project.file("icons/icon.png"))
+            }
+
+            windows {
+                iconFile.set(project.file("icons/icon.ico"))
+            }
         }
     }
+}
+
+tasks.create("generateResourceAccessors") {
+    dependsOn(
+        *(
+            tasks.filter {
+                it.name.startsWith("generateResourceAccessors") &&
+                !it.name.matches("^(:${project.name})?generateResourceAccessors$".toRegex())
+            }.toTypedArray()
+        )
+    )
 }
