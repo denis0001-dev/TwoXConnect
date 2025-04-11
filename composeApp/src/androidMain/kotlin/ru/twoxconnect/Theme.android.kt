@@ -6,6 +6,7 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
+import androidx.compose.runtime.Composable
 
 actual fun colorScheme(darkTheme: Boolean): ColorScheme {
     return if (Build.VERSION.SDK_INT >= 31) {
@@ -21,4 +22,9 @@ actual fun colorScheme(darkTheme: Boolean): ColorScheme {
             darkColorScheme()
         }
     }
+}
+
+@Composable
+actual inline fun ProvideContextMenuRepresentation(darkTheme: Boolean, content: @Composable () -> Unit) {
+    content()
 }

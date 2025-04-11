@@ -45,6 +45,7 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
+            implementation(libs.constraintlayout.compose.multiplatform)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
