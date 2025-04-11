@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
 import ru.denis0001dev.LocalSupportClipboardManager
+import ru.denis0001dev.ToggleNavScrimEffect
 import ru.denis0001dev.Typography
 import ru.denis0001dev.invoke
 import ru.denis0001dev.supportClipboardManagerImpl
@@ -42,12 +43,15 @@ expect fun colorScheme(darkTheme: Boolean): ColorScheme
 fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     consumeWindowInsets: Boolean = false,
+    removeScrim: Boolean = true,
     content: @Composable WindowInsetsScope.() -> Unit
 ) {
     MaterialTheme(
         colorScheme = colorScheme(darkTheme),
         typography = Typography(Res.font.roboto)
     ) {
+        ToggleNavScrimEffect(removeScrim)
+
         val insets = WindowInsets(
             WindowInsets.systemBars.getLeft(
                 LocalDensity(),

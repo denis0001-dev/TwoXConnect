@@ -6,4 +6,4 @@ import androidx.compose.ui.Modifier
 actual fun Modifier.clearFocusOnKeyboardDismiss() = this
 
 @Composable
-actual fun removeNavScrim() {}
+actual fun ToggleNavScrimEffect(enabled: Boolean) {}

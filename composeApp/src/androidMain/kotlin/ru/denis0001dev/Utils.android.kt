@@ -1,5 +1,6 @@
 package ru.denis0001dev
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -42,12 +43,16 @@ actual fun Modifier.clearFocusOnKeyboardDismiss(): Modifier = composed {
     }
 }
 
+@SuppressLint("ComposableNaming")
 @Composable
-actual fun removeNavScrim() {
-    runCatching {
-        val window = (LocalContext.current as Activity).window
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            window.isNavigationBarContrastEnforced = false
+actual fun ToggleNavScrimEffect(enabled: Boolean) {
+    val context = (LocalContext.current as Activity)
+    LaunchedEffect(enabled) {
+        runCatching {
+            val window = context.window
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                window.isNavigationBarContrastEnforced = enabled
+            }
         }
     }
 }

@@ -1,15 +1,17 @@
-@file:Suppress("UnusedReceiverParameter", "unused")
-@file:JvmName("Extensions")
+@file:Suppress("UnusedReceiverParameter", "unused", "NOTHING_TO_INLINE", "KotlinRedundantDiagnosticSuppress")
 package ru.denis0001dev
 
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocal
 import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.constraintlayout.compose.ConstrainScope
@@ -19,7 +21,6 @@ import androidx.constraintlayout.compose.HorizontalAnchorable
 import androidx.constraintlayout.compose.VerticalAnchorable
 import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.FontResource
-import kotlin.jvm.JvmName
 
 @Composable
 fun Typography(fontRes: FontResource) = Typography().let {
@@ -67,7 +68,7 @@ var ClipboardManager.text
     set(value) = setText(value!!)
 
 @Composable
-expect fun removeNavScrim()
+expect fun ToggleNavScrimEffect(enabled: Boolean = false)
 
 interface SupportClipboardManager {
     suspend fun setText(string: String)
@@ -102,3 +103,13 @@ fun String.toAnnotatedString() = AnnotatedString(this)
 
 @Composable
 inline operator fun <T> CompositionLocal<T>.invoke() = current
+
+val LocalSnackbar: ProvidableCompositionLocal<SnackbarHostState> = compositionLocalOf { throw NullPointerException() }
+
+inline fun resetFocus(
+    keyboardController: SoftwareKeyboardController?,
+    focusManager: FocusManager
+) {
+    keyboardController?.hide()
+    focusManager.clearFocus(true)
+}
