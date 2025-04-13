@@ -47,6 +47,8 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.constraintlayout.compose.multiplatform)
+
+            implementation(project(":utils"))
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -73,7 +75,8 @@ android {
     }
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
         }
     }
     compileOptions {
@@ -104,6 +107,12 @@ compose.desktop {
             }
         }
     }
+}
+
+compose.resources {
+    publicResClass = false
+    packageOfResClass = "ru.twoxconnect"
+    generateResClass = auto
 }
 
 tasks.create("generateResourceAccessors") {
