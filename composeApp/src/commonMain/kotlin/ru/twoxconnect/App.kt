@@ -20,7 +20,6 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
@@ -67,12 +66,11 @@ fun App() {
             val keyboardController = LocalSoftwareKeyboardController.current
             val focusManager = LocalFocusManager.current
 
-            LaunchedEffect(pagerState) {
-                snapshotFlow { pagerState.currentPage }.collect {
-                    if (pagerState.currentPage == pagerState.targetPage) {
-                        if (selectedItem != it) selectedItem = it
-                        resetFocus(keyboardController, focusManager)
-                    }
+            LaunchedEffect(pagerState.currentPage) {
+                if (pagerState.currentPage == pagerState.targetPage) {
+                    if (selectedItem != pagerState.currentPage)
+                        selectedItem = pagerState.currentPage
+                    resetFocus(keyboardController, focusManager)
                 }
             }
 
@@ -83,36 +81,33 @@ fun App() {
                 }
             }
 
+            fun onClick(page: Int): () -> Unit = {
+                selectedItem = page
+                coroutineScope.launch {
+                    pagerState.animateScrollToPage(page)
+                }
+            }
+
             val navItems = arrayOf(
                 NavigationItem(
                     name = "Home",
                     selectedIcon = Icons.Filled.Home,
                     unselectedIcon = Icons.Outlined.Home,
-                    onClick = {
-                        selectedItem = 0
-                        coroutineScope.launch {
-                            pagerState.animateScrollToPage(0)
-                        }
-                    }
+                    onClick = onClick(0)
                 ),
                 NavigationItem(
                     name = "Settings",
                     selectedIcon = Icons.Filled.Settings,
                     unselectedIcon = Icons.Outlined.Settings,
-                    onClick = {
-                        selectedItem = 1
-                        coroutineScope.launch {
-                            pagerState.animateScrollToPage(1)
-                        }
-                    }
+                    onClick = onClick(1)
                 )
             )
 
-            if (currentWindowAdaptiveInfo()
-                    .windowSizeClass.let {
-                        it.windowWidthSizeClass == WindowWidthSizeClass.EXPANDED ||
-                                it.windowWidthSizeClass == WindowWidthSizeClass.MEDIUM
-                    }
+            if (
+                currentWindowAdaptiveInfo().windowSizeClass.let {
+                    it.windowWidthSizeClass == WindowWidthSizeClass.EXPANDED ||
+                    it.windowWidthSizeClass == WindowWidthSizeClass.MEDIUM
+                }
             ) {
                 VerticalPager(
                     state = pagerState,
@@ -139,12 +134,11 @@ fun App() {
                 )
                 SimpleNavigationRail(
                     selectedItem = selectedItem,
-                    modifier = Modifier
-                        .constrainAs(nav) {
-                            bottom link parent.bottom
-                            top link parent.top
-                            left link parent.left
-                        },
+                    modifier = Modifier.constrainAs(nav) {
+                        bottom link parent.bottom
+                        top link parent.top
+                        left link parent.left
+                    },
                     items = navItems
                 )
             } else {
@@ -172,10 +166,9 @@ fun App() {
                 )
                 SimpleNavigationBar(
                     selectedItem = selectedItem,
-                    modifier = Modifier
-                        .constrainAs(nav) {
-                            bottom link parent.bottom
-                        },
+                    modifier = Modifier.constrainAs(nav) {
+                        bottom link parent.bottom
+                    },
                     items = navItems
                 )
             }

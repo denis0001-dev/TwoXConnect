@@ -17,8 +17,7 @@ import kotlin.jvm.JvmStatic
 
 /**
  * Calculates and returns [WindowAdaptiveInfo] of the provided context. It's a convenient function
- * that uses the default [WindowSizeClass] constructor and the default [Posture] calculation
- * functions to retrieve [WindowSizeClass] and [Posture].
+ * that uses the default [WindowSizeClass] constructor to retrieve [WindowSizeClass].
  *
  * @return [WindowAdaptiveInfo] of the provided context
  */
@@ -35,7 +34,6 @@ fun currentWindowAdaptiveInfo(): WindowAdaptiveInfo {
  * to use the info from this class to decide how the layout is supposed to be adapted.
  *
  * @param windowSizeClass [WindowSizeClass] of the current window.
- * @param windowPosture [Posture] of the current window.
  * @constructor create an instance of [WindowAdaptiveInfo]
  */
 @Immutable
