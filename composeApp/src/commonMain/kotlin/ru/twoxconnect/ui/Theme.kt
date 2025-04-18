@@ -13,6 +13,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ProvidableCompositionLocal
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -38,6 +40,8 @@ interface WindowInsetsScope {
 expect inline fun ProvideContextMenuRepresentation(darkTheme: Boolean, crossinline content: @Composable () -> Unit)
 
 expect fun colorScheme(darkTheme: Boolean): ColorScheme
+
+val LocalWindowInsetsScope: ProvidableCompositionLocal<WindowInsetsScope> = compositionLocalOf { error("") }
 
 @Composable
 fun AppTheme(
@@ -86,20 +90,18 @@ fun AppTheme(
                     val leftInset = insets.getLeft(LocalDensity(), LocalLayoutDirection())
                     val rightInset = insets.getRight(LocalDensity(), LocalLayoutDirection())
 
-                    content(object : WindowInsetsScope {
-                        override val systemBarInsets: WindowInsets
-                            get() = insets
-                        override val isWindowInsetsConsumed: Boolean
-                            get() = consumeWindowInsets
-                        override val topInset: Int
-                            get() = topInset
-                        override val bottomInset: Int
-                            get() = bottomInset
-                        override val leftInset: Int
-                            get() = leftInset
-                        override val rightInset: Int
-                            get() = rightInset
-                    })
+                    val scope = object : WindowInsetsScope {
+                        override val systemBarInsets get() = insets
+                        override val isWindowInsetsConsumed get() = consumeWindowInsets
+                        override val topInset get() = topInset
+                        override val bottomInset get() = bottomInset
+                        override val leftInset get() = leftInset
+                        override val rightInset get() = rightInset
+                    }
+
+                    CompositionLocalProvider(LocalWindowInsetsScope provides scope) {
+                        content(scope)
+                    }
                 }
             }
         }

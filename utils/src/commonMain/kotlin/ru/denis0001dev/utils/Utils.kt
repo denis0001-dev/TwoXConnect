@@ -1,6 +1,7 @@
 @file:Suppress("UnusedReceiverParameter", "unused", "NOTHING_TO_INLINE", "KotlinRedundantDiagnosticSuppress")
 package ru.denis0001dev.utils
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
@@ -11,9 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.constraintlayout.compose.ConstrainScope
 import androidx.constraintlayout.compose.ConstrainedLayoutReference
 import androidx.constraintlayout.compose.ConstraintLayoutBaseScope
@@ -161,3 +164,17 @@ fun String.encodeJSON(): String {
     }
     return "$out"
 }
+
+@Composable
+operator fun PaddingValues.plus(other: PaddingValues) = PaddingValues(
+    top = calculateTopPadding() + other.calculateTopPadding(),
+    bottom = calculateBottomPadding() + other.calculateTopPadding(),
+    start = when (LocalLayoutDirection()) {
+        LayoutDirection.Ltr -> calculateLeftPadding(LocalLayoutDirection())
+        LayoutDirection.Rtl -> calculateRightPadding(LocalLayoutDirection())
+    },
+    end = when (LocalLayoutDirection()) {
+        LayoutDirection.Ltr -> calculateRightPadding(LocalLayoutDirection())
+        LayoutDirection.Rtl -> calculateLeftPadding(LocalLayoutDirection())
+    }
+)

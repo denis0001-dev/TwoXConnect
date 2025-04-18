@@ -47,6 +47,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.constraintlayout.compose.multiplatform)
+            implementation(libs.navigation.compose)
 
             implementation(project(":utils"))
         }
@@ -74,7 +75,7 @@ android {
         }
     }
     buildTypes {
-        getByName("release") {
+        release {
             isMinifyEnabled = true
             isShrinkResources = true
         }
