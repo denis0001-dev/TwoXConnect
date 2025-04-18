@@ -70,7 +70,7 @@ internal inline fun AboutScreen() {
         Box(Modifier.padding(innerPadding)) {
             Column(
                 Modifier
-                    .padding(horizontal = 16.dp)
+                    .padding(top = 16.dp, start = 16.dp, end = 16.dp)
                     .verticalScroll(rememberScrollState())
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally

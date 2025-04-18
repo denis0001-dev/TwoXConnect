@@ -1,5 +1,9 @@
 package ru.twoxconnect.ui
 
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -23,7 +27,9 @@ fun App() {
         CompositionLocalProvider(LocalNavController provides navController) {
             NavHost(
                 navController = navController,
-                startDestination = "main"
+                startDestination = "main",
+                enterTransition = { scaleIn(initialScale = 0.9f) + fadeIn() },
+                exitTransition = { scaleOut(targetScale = 0.9f) + fadeOut() }
             ) {
                 composable("main") {
                     MainScreen()
