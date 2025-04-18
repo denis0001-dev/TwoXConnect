@@ -6,8 +6,6 @@ import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import org.jetbrains.compose.resources.painterResource
 import ru.twoxconnect.ui.App
-import twoxconnect.composeapp.generated.resources.Res
-import twoxconnect.composeapp.generated.resources.icon
 
 fun main() = application {
     Window(

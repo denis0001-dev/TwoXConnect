@@ -42,6 +42,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCaller
 import androidx.annotation.AttrRes
+import androidx.annotation.RequiresPermission
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.biometric.BiometricManager
@@ -119,7 +120,7 @@ actual fun Modifier.clearFocusOnKeyboardDismiss(): Modifier = composed {
 @SuppressLint("ComposableNaming")
 @Composable
 actual fun ToggleNavScrimEffect(enabled: Boolean) {
-    val context = (LocalContext.current as Activity)
+    val context = (LocalContext() as Activity)
     LaunchedEffect(enabled) {
         runCatching {
             val window = context.window
@@ -718,6 +719,7 @@ val ActivityInfo.launchIntent get() = Intent().apply {
     flags = FLAG_ACTIVITY_NEW_TASK
 }
 
+@RequiresPermission(Manifest.permission.QUERY_ALL_PACKAGES)
 fun ActivityInfo.isLauncher(context: Context): Boolean {
     with (context) {
         @Suppress("ExplicitThis")
@@ -768,11 +770,12 @@ typealias HeightSizeClass = WindowHeightSizeClass
 @Suppress("unused")
 typealias SizeClass = WindowSizeClass
 
+@RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
 inline fun Context.notifyIfAllowed(
     id: Int,
     notification: Notification
 ) {
-    with (NotificationManagerCompat.from(this)) {
+    with (NotificationManagerCompat.from(this))  {
         if (
             checkSelfPermission(
                 Manifest.permission.POST_NOTIFICATIONS

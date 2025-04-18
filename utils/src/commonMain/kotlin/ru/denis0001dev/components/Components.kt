@@ -1,4 +1,4 @@
-@file:Suppress("unused", "MemberVisibilityCanBePrivate", "UnusedReceiverParameter")
+@file:Suppress("unused", "MemberVisibilityCanBePrivate", "UnusedReceiverParameter", "NOTHING_TO_INLINE")
 
 package ru.denis0001dev.components
 
