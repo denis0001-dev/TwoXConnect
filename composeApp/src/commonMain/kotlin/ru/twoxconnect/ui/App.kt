@@ -21,7 +21,7 @@ val LocalNavController: ProvidableCompositionLocal<NavController> = compositionL
 @Composable
 @Preview
 fun App() {
-    AppTheme(consumeWindowInsets = true) {
+    AppTheme {
         val navController = rememberNavController()
 
         CompositionLocalProvider(LocalNavController provides navController) {
@@ -31,13 +31,8 @@ fun App() {
                 enterTransition = { scaleIn(initialScale = 0.9f) + fadeIn() },
                 exitTransition = { scaleOut(targetScale = 0.9f) + fadeOut() }
             ) {
-                composable("main") {
-                    MainScreen()
-                }
-
-                composable("about") {
-                    AboutScreen()
-                }
+                composable("main") { MainScreen() }
+                composable("about") { AboutScreen() }
             }
         }
     }

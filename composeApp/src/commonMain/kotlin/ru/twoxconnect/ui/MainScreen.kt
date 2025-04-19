@@ -2,9 +2,7 @@
 
 package ru.twoxconnect.ui
 
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerScope
 import androidx.compose.foundation.pager.VerticalPager
@@ -112,15 +110,7 @@ internal inline fun MainScreen() {
                             right link parent.right
                             height = Dimension.fillToConstraints
                             width = Dimension.fillToConstraints
-                        }
-                        .windowInsetsPadding(
-                            WindowInsets(
-                                0,
-                                topInset,
-                                0,
-                                bottomInset
-                            )
-                        ),
+                        },
                     pageContent = pages,
                     userScrollEnabled = false
                 )
@@ -145,15 +135,7 @@ internal inline fun MainScreen() {
                             right link parent.right
                             width = Dimension.fillToConstraints
                             height = Dimension.fillToConstraints
-                        }
-                        .windowInsetsPadding(
-                            WindowInsets(
-                                0,
-                                topInset,
-                                0,
-                                0
-                            )
-                        ),
+                        },
                     pageContent = pages
                 )
                 SimpleNavigationBar(
