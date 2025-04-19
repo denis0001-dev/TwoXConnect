@@ -18,9 +18,9 @@ actual fun colorScheme(darkTheme: Boolean): ColorScheme {
         }
     } else {
         if (darkTheme) {
-            lightColorScheme()
-        } else {
             darkColorScheme()
+        } else {
+            lightColorScheme()
         }
     }
 }
