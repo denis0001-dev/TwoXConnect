@@ -10,3 +10,6 @@ actual fun colorScheme(darkTheme: Boolean) = if (darkTheme) darkColorScheme() el
 actual inline fun ProvideContextMenuRepresentation(darkTheme: Boolean, content: @Composable () -> Unit) {
     content()
 }
+
+@Composable
+actual fun fixStatusBar(darkTheme: Boolean) {}

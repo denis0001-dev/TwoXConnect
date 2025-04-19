@@ -36,6 +36,8 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.androidx.core.splashscreen)
             implementation(libs.androidx.adaptive.android)
+            implementation(libs.datastore.preferences)
+            implementation(libs.datastore.core)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -48,6 +50,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.constraintlayout.compose.multiplatform)
             implementation(libs.navigation.compose)
+            implementation(compose.materialIconsExtended)
 
             implementation(project(":utils"))
         }

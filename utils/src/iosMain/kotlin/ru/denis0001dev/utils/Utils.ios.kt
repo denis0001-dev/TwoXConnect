@@ -7,3 +7,4 @@ actual fun Modifier.clearFocusOnKeyboardDismiss() = this
 
 @Composable
 actual fun ToggleNavScrimEffect(enabled: Boolean) {}
+actual val materialYouAvailable get() = false

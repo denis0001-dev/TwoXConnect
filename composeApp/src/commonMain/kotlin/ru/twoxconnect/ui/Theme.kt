@@ -20,6 +20,8 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -53,9 +55,29 @@ expect fun colorScheme(darkTheme: Boolean): ColorScheme
 
 val LocalWindowInsetsScope: ProvidableCompositionLocal<WindowInsetsScope> = compositionLocalOf { error("") }
 
+enum class Theme {
+    AsSystem,
+    Light,
+    Dark
+}
+
+var dynamicThemeEnabled by mutableStateOf(
+    /*runCatching { Settings.materialYouEnabled }.getOrNull() == true*/ true // TODO replace with persistent settings
+)
+var theme by mutableStateOf(
+    /*runCatching { Settings.appTheme }.getOrNull() ?:*/ Theme.AsSystem // TODO replace with persistent settings
+)
+
+@Composable
+expect fun fixStatusBar(darkTheme: Boolean)
+
 @Composable
 fun AppTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean = when (theme) {
+        Theme.AsSystem -> isSystemInDarkTheme()
+        Theme.Light -> false
+        Theme.Dark -> true
+    },
     removeScrim: Boolean = true,
     consumeTopInsets: Boolean = false,
     consumeBottomInsets: Boolean = false,
@@ -138,6 +160,8 @@ fun AppTheme(
         surfaceContainerHigh = surfaceContainerHigh,
         surfaceContainerHighest = surfaceContainerHighest
     )
+
+    fixStatusBar(darkTheme)
 
     MaterialTheme(
         colorScheme = colorScheme,

@@ -42,6 +42,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCaller
 import androidx.annotation.AttrRes
+import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.annotation.RequiresPermission
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
@@ -826,3 +827,6 @@ inline fun String.decodeWindows1251() = String(
     toByteArray(Charsets.ISO_8859_1),
     Charsets.UTF_8
 )
+
+@get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S)
+actual val materialYouAvailable get() = Build.VERSION.SDK_INT >= 31

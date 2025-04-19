@@ -178,3 +178,5 @@ operator fun PaddingValues.plus(other: PaddingValues) = PaddingValues(
         LayoutDirection.Rtl -> calculateLeftPadding(LocalLayoutDirection())
     }
 )
+
+expect val materialYouAvailable: Boolean
