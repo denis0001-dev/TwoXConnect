@@ -6,6 +6,10 @@ plugins {
 }
 
 kotlin {
+    compilerOptions {
+        freeCompilerArgs.addAll("-Xexpect-actual-classes")
+    }
+
     androidLibrary {
         namespace = "ru.denis0001dev.utils"
         compileSdk = 35
@@ -48,6 +52,8 @@ kotlin {
             implementation(libs.gson)
 
             implementation(libs.androidx.adaptive.android)
+            implementation(libs.datastore.preferences)
+            implementation(libs.datastore.core)
         }
 
         iosMain.dependencies {

@@ -43,6 +43,8 @@ import ru.denis0001dev.components.SwitchListItem
 import ru.denis0001dev.utils.invoke
 import ru.denis0001dev.utils.materialYouAvailable
 import ru.twoxconnect.Res
+import ru.twoxconnect.Settings
+import ru.twoxconnect.Settings.materialYou
 import ru.twoxconnect.about
 import ru.twoxconnect.as_system
 import ru.twoxconnect.dark
@@ -93,7 +95,7 @@ fun SettingsTab() {
             ) {
                 var materialYouSwitch by remember {
                     mutableStateOf(
-                        /*materialYouEnabled*/ materialYouAvailable // TODO replace with persistent setting
+                        materialYou && materialYouAvailable
                     )
                 }
 
@@ -106,7 +108,7 @@ fun SettingsTab() {
                         checked = materialYouSwitch,
                         onCheckedChange = {
                             materialYouSwitch = it
-                            /*materialYouEnabled = it*/ // TODO replace with persistent setting
+                            materialYou = it
                             dynamicThemeEnabled = it
                         },
                         divider = true,
@@ -135,7 +137,7 @@ fun SettingsTab() {
                         },
                         bottomContent = {
                             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                var selectedIndex by remember { mutableIntStateOf(/*appTheme.ordinal*/ Theme.AsSystem.ordinal) } // TODO repalce with persistent setting
+                                var selectedIndex by remember { mutableIntStateOf(Settings.theme.ordinal) } // TODO repalce with persistent setting
                                 val options = listOf(
                                     stringResource(Res.string.as_system),
                                     stringResource(Res.string.light),
@@ -145,7 +147,7 @@ fun SettingsTab() {
                                     FilterChip(
                                         onClick = {
                                             selectedIndex = index
-                                            /*appTheme = Theme.entries[index]*/ // TODO replace with persistent setting
+                                            Settings.theme = Theme.entries[index]
                                             theme = Theme.entries[index]
                                         },
                                         selected = index == selectedIndex,

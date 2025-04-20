@@ -36,8 +36,6 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.androidx.core.splashscreen)
             implementation(libs.androidx.adaptive.android)
-            implementation(libs.datastore.preferences)
-            implementation(libs.datastore.core)
         }
         commonMain.dependencies {
             implementation(compose.runtime)

@@ -32,6 +32,7 @@ import ru.denis0001dev.utils.invoke
 import ru.denis0001dev.utils.plus
 import ru.denis0001dev.utils.supportClipboardManagerImpl
 import ru.twoxconnect.Res
+import ru.twoxconnect.Settings
 import ru.twoxconnect.roboto
 
 interface WindowInsetsScope {
@@ -62,10 +63,10 @@ enum class Theme {
 }
 
 var dynamicThemeEnabled by mutableStateOf(
-    /*runCatching { Settings.materialYouEnabled }.getOrNull() == true*/ true // TODO replace with persistent settings
+    runCatching { Settings.materialYou }.getOrNull() == true
 )
 var theme by mutableStateOf(
-    /*runCatching { Settings.appTheme }.getOrNull() ?:*/ Theme.AsSystem // TODO replace with persistent settings
+    runCatching { Settings.theme }.getOrNull() ?: Theme.AsSystem
 )
 
 @Composable
