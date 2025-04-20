@@ -70,11 +70,6 @@ class DesktopSettings : Settings {
         return value.split("\u0000")
     }
 
-    override fun clear() {
-        preferences.clear()
-        preferences.flush()
-    }
-
     override fun remove(key: String) {
         preferences.remove(key)
         preferences.flush()

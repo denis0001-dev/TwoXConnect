@@ -28,7 +28,6 @@ interface Settings {
     
     fun putStringList(key: String, value: List<String>)
     fun getStringList(key: String, default: List<String> = emptyList()): List<String>
-    
-    fun clear()
+
     fun remove(key: String)
 } 

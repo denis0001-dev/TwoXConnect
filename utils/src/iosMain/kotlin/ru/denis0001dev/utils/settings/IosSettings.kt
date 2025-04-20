@@ -1,12 +1,10 @@
 package ru.denis0001dev.utils.settings
 
 import platform.Foundation.NSUserDefaults
-import platform.Foundation.standardUserDefaults
-
 
 // TODO fix
 class IosSettings : Settings {
-    private val defaults: NSUserDefaults = standardUserDefaults
+    private val defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults
 
     override fun putString(key: String, value: String) {
         defaults.setObject(value, key)
@@ -64,10 +62,6 @@ class IosSettings : Settings {
     override fun getStringList(key: String, default: List<String>): List<String> {
         val list = defaults.objectForKey(key) as? List<*> ?: return default
         return list.filterIsInstance<String>()
-    }
-
-    override fun clear() {
-        defaults.removePersistentDomainForName(defaults.persistentDomainName)
     }
 
     override fun remove(key: String) {

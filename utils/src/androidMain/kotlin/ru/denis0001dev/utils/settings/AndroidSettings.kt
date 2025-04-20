@@ -101,13 +101,6 @@ class AndroidSettings(private val context: Context): Settings {
 
     override fun getStringList(key: String, default: List<String>) = getStringSet(key, default.toSet()).toList()
 
-    override fun clear() = runBlocking {
-        context.dataStore.edit { preferences ->
-            preferences.clear()
-        }
-        Unit
-    }
-
     override fun remove(key: String) = runBlocking {
         context.dataStore.edit { preferences ->
             preferences.remove(stringPreferencesKey(key))
