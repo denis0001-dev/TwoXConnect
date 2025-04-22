@@ -36,6 +36,6 @@ actual inline fun ProvideContextMenuRepresentation(darkTheme: Boolean, content: 
 }
 
 @Composable
-actual fun fixStatusBar(darkTheme: Boolean) {
+actual fun fixStatusBar(darkTheme: Boolean, asSystem: Boolean) {
     WindowCompat.getInsetsController((LocalContext() as Activity).window, LocalView()).isAppearanceLightStatusBars = !darkTheme
 }

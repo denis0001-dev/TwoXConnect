@@ -24,4 +24,4 @@ actual inline fun ProvideContextMenuRepresentation(darkTheme: Boolean, crossinli
 }
 
 @Composable
-actual fun fixStatusBar(darkTheme: Boolean) {}
+actual fun fixStatusBar(darkTheme: Boolean, asSystem: Boolean) {}

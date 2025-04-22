@@ -70,7 +70,7 @@ var theme by mutableStateOf(
 )
 
 @Composable
-expect fun fixStatusBar(darkTheme: Boolean)
+expect fun fixStatusBar(darkTheme: Boolean, asSystem: Boolean)
 
 @Composable
 fun AppTheme(
@@ -162,7 +162,7 @@ fun AppTheme(
         surfaceContainerHighest = surfaceContainerHighest
     )
 
-    fixStatusBar(darkTheme)
+    fixStatusBar(darkTheme, theme == Theme.AsSystem)
 
     MaterialTheme(
         colorScheme = colorScheme,
