@@ -6,13 +6,14 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    kotlin("plugin.serialization") version "1.9.22"
 }
 
 kotlin {
-    androidTarget {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
-        }
+    androidTarget()
+
+    compilerOptions {
+        freeCompilerArgs.addAll("-Xexpect-actual-classes")
     }
     
     listOf(
@@ -50,11 +51,24 @@ kotlin {
             implementation(libs.navigation.compose)
             implementation(compose.materialIconsExtended)
 
+            // Serialization
+            implementation(libs.kotlinx.serialization.json)
+
+            implementation(libs.kotlinx.io.core)
+            
             implementation(project(":utils"))
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
+        }
+        iosMain.dependencies {
+            implementation("org.jetbrains.kotlinx:kotlinx-io-core:0.3.0")
+            implementation("org.jetbrains.kotlinx:kotlinx-io-core-posix:0.3.0")
+            implementation("org.jetbrains.kotlinx:kotlinx-io-bytestring:0.3.0")
+            implementation("org.jetbrains.kotlinx:kotlinx-io-buffer:0.3.0")
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:1.7.3")
         }
     }
 }
